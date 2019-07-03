@@ -19,6 +19,10 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+
   nextQuestion = () => {
     this.setState((state) => ({
       answer: '',
@@ -26,6 +30,7 @@ class App extends React.Component {
       lastRating: state.rating,
       rating: {},
     }));
+    this.inputRef.current.focus();
   };
 
   onSubmit(event) {
