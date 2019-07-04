@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import * as quiz from './quiz';
 import './App.css';
 
@@ -7,7 +8,6 @@ class App extends React.Component {
   state = {
     question: quiz.nextQuestion(),
     answer: '',
-    lastRating: {},
     rating: {}, // absent, correct or wrong
   };
 
@@ -24,12 +24,10 @@ class App extends React.Component {
   }
 
   nextQuestion = () => {
-    this.setState((state) => ({
+    this.setState({
       answer: '',
       question: quiz.nextQuestion(),
-      lastRating: state.rating,
-      rating: {},
-    }));
+    });
     this.inputRef.current.focus();
   };
 
@@ -51,8 +49,11 @@ class App extends React.Component {
       void el.offsetHeight; /* trigger reflow */
       el.style.animation = null;
     }
-
-    this.setState({ rating });
+    if (rating.result === 'correct') {
+      this.setState({ rating, answer: rating.correctAnswer });
+    } else {
+      this.setState({ rating });
+    }
   }
 
   giveUp = () => {
@@ -65,41 +66,64 @@ class App extends React.Component {
     this.setState({ answer: event.target.value });
   };
 
+  isResolved() {
+    return (
+      this.state.rating.result === 'correct' ||
+      this.state.rating.result === 'gave_up'
+    );
+  }
+
   render() {
     return (
       <div className="App">
-        <span className="question">{this.state.question.message}</span>
-        <form onSubmit={this.onSubmit}>
-          <input
-            value={this.state.answer}
-            onChange={this.onChange}
-            className={classNames('answer', {
-              wrong: this.state.rating.result === 'wrong',
-            })}
-            ref={this.inputRef}
-            spellCheck="false"
-          />
-        </form>
-        <div
-          className={classNames('hideable', {
-            hidden: !this.state.rating.result,
-          })}
-          style={{ display: 'flex', flexDirection: 'column' }}
-        >
-          {this.renderResult()}
-        </div>
+        <h1>
+          <span role="img" aria-label="US Flag">
+            🇺🇸
+          </span>
+          US State Quiz
+        </h1>
+        <SwitchTransition>
+          <CSSTransition
+            key={this.state.question.id}
+            addEndListener={(node, done) =>
+              node.addEventListener('transitionend', done, false)
+            }
+            classNames="question-transition"
+            onExited={() => this.setState({ rating: {} })}
+            onEntered={() => this.inputRef.current.focus()}
+          >
+            <div className="container">
+              <form onSubmit={this.onSubmit}>
+                <span className="question">{this.state.question.message}</span>
+                <input
+                  value={this.state.answer}
+                  onChange={this.onChange}
+                  className={classNames('answer', this.state.rating.result)}
+                  ref={this.inputRef}
+                  spellCheck="false"
+                  readOnly={this.isResolved()}
+                />
+              </form>
+              <SwitchTransition>
+                <CSSTransition
+                  key={this.state.rating.result || 'none'}
+                  addEndListener={(node, done) =>
+                    node.addEventListener('transitionend', done, false)
+                  }
+                  classNames="result-msg"
+                >
+                  <div className="d-flex-v">{this.renderResult()}</div>
+                </CSSTransition>
+              </SwitchTransition>
+            </div>
+          </CSSTransition>
+        </SwitchTransition>
       </div>
     );
   }
 
   renderResult() {
-    if (!this.state.rating.result) {
-      return this.renderResultExplicit(this.state.lastRating);
-    }
-    return this.renderResultExplicit(this.state.rating);
-  }
-
-  renderResultExplicit(rating) {
+    const rating = this.state.rating;
     if (rating.result === 'correct') {
       return (
         <React.Fragment>

@@ -30,3 +30,12 @@ button {
 span[role='img'] {
   padding: 0 0.3em;
 }
+
+.d-flex {
+  display: flex;
+}
+
+.d-flex-v {
+  display: flex;
+  flex-direction: column;
+}

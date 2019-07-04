@@ -1,12 +1,13 @@
 {
   "name": "us-state-quiz",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "classnames": "^2.2.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-transition-group": "^4.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

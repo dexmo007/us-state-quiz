@@ -5,11 +5,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  /* max-width: 500px;
-  margin: auto; */
+  margin-top: 7vh;
+}
+
+.App .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.App form {
+  display: flex;
+  flex-direction: column;
 }
 
 .App input {
@@ -35,6 +43,9 @@
   color: #882424;
   border-color: #882424;
   animation: shake 750ms ease-in-out 0s 1;
+}
+.App input.answer.gave_up {
+  text-decoration: line-through;
 }
 
 @keyframes shake {
@@ -128,4 +139,40 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.result-msg-enter {
+  transform: scale(0);
+  opacity: 0;
+}
+.result-msg-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
+}
+.result-msg-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.result-msg-exit-active {
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
+}
+
+.question-transition-enter {
+  transform: translateX(-100vw);
+}
+.question-transition-enter-active {
+  transform: scale(1);
+  transition: transform 350ms ease-in-out;
+}
+
+.question-transition-exit {
+  transform: translateX(0);
+}
+
+.question-transition-exit-active {
+  transform: translateX(100vw);
+  transition: transform 250ms ease-in-out;
 }

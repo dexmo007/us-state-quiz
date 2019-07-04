@@ -37,6 +37,7 @@ export function nextQuestion() {
     state,
     message,
     answerField,
+    id: (Math.random() * 1000000).toFixed(0),
   };
 }
 
@@ -51,6 +52,7 @@ export function rate({ state, answerField }, answer) {
   if (answer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
     return {
       result: 'correct',
+      correctAnswer,
     };
   }
   return {
