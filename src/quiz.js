@@ -1,5 +1,6 @@
 import levenshtein from 'js-levenshtein';
 import data from './states.json';
+import { pick } from './util';
 
 const states = data
   .filter((s) => !s.territory)
@@ -76,9 +77,4 @@ export default class Quiz {
       correctAnswer,
     };
   }
-}
-
-function pick(arr) {
-  const i = Math.floor(Math.random() * arr.length);
-  return arr[i];
 }

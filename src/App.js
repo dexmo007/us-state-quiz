@@ -4,6 +4,8 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import Quiz from './Quiz';
 import * as results from './result';
 import './App.css';
+import { pick } from './util';
+import { ReactComponent as USFlag } from './us.svg';
 
 class App extends React.Component {
   state = {
@@ -42,14 +44,25 @@ class App extends React.Component {
       this.nextQuestion();
       return;
     }
+    const previousRating = this.state.rating;
     const rating = this.quiz.rate(this.state.question, this.state.answer);
 
-    if (rating.result === 'wrong' && this.state.rating.result === 'wrong') {
+    if (
+      (rating.result === 'wrong' && previousRating.result === 'wrong') ||
+      (rating.result === 'almost' && previousRating.result === 'almost')
+    ) {
       // retrigger animation if still wrong
       const el = this.inputRef.current;
       el.style.animation = 'none';
       void el.offsetHeight; /* trigger reflow */
       el.style.animation = null;
+    }
+    if (rating.result === previousRating.result) {
+      rating.emoji = previousRating.emoji;
+      rating.message = previousRating.message;
+    } else {
+      rating.message = pick(results.pools[rating.result].messages);
+      rating.emoji = pick(results.pools[rating.result].emojis);
     }
     if (rating.result === 'correct') {
       this.setState({ rating, answer: rating.correctAnswer });
@@ -60,7 +73,12 @@ class App extends React.Component {
 
   giveUp = () => {
     this.setState((state) => ({
-      rating: { ...state.rating, result: 'gave_up' },
+      rating: {
+        ...state.rating,
+        result: 'gave_up',
+        message: pick(results.pools.gave_up.messages),
+        emoji: pick(results.pools.gave_up.emojis),
+      },
     }));
   };
 
@@ -78,10 +96,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>
-          <span role="img" aria-label="US Flag">
-            🇺🇸
-          </span>
+        <h1 className="d-flex" style={{ alignItems: 'center' }}>
+          <USFlag height="1em" style={{ margin: '.2em' }} />
           US State Quiz
         </h1>
         <SwitchTransition>
