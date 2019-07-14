@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import GithubCorner from 'react-github-corner';
-import Quiz from './Quiz';
+import Quiz from './quiz';
 import * as results from './result';
 import './App.css';
 import { pick } from './util';
