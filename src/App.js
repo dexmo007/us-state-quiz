@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import GithubCorner from 'react-github-corner';
 import Quiz from './Quiz';
 import * as results from './result';
 import './App.css';
@@ -96,6 +97,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <GithubCorner
+          href="https://github.com/dexmo007/us-state-quiz"
+          bannerColor="#fff"
+          octoColor="#282c34"
+        />
         <h1 className="d-flex" style={{ alignItems: 'center' }}>
           <USFlag height="1em" style={{ margin: '.2em' }} />
           US State Quiz
