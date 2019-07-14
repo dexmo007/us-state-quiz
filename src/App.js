@@ -1,21 +1,22 @@
 import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import * as quiz from './quiz';
+import Quiz from './Quiz';
 import './App.css';
 
 class App extends React.Component {
   state = {
-    question: quiz.nextQuestion(),
+    question: null,
     answer: '',
     rating: {}, // absent, correct or wrong
   };
 
   constructor(props) {
     super(props);
-
+    this.quiz = new Quiz();
+    this.state.question = this.quiz.nextQuestion();
     this.inputRef = React.createRef();
-    // This binding is necessary to make `this` work in the callback
+
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -26,7 +27,7 @@ class App extends React.Component {
   nextQuestion = () => {
     this.setState({
       answer: '',
-      question: quiz.nextQuestion(),
+      question: this.quiz.nextQuestion(),
     });
     this.inputRef.current.focus();
   };
@@ -40,7 +41,7 @@ class App extends React.Component {
       this.nextQuestion();
       return;
     }
-    const rating = quiz.rate(this.state.question, this.state.answer);
+    const rating = this.quiz.rate(this.state.question, this.state.answer);
 
     if (rating.result === 'wrong' && this.state.rating.result === 'wrong') {
       // retrigger animation if still wrong

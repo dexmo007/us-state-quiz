@@ -23,40 +23,48 @@ const templates = {
   }),
 };
 
+export default class Quiz {
+  _lastPickedState;
+
+  nextQuestion() {
+    const state = pick(states);
+    if (this._lastPickedState === state.name) {
+      return this.nextQuestion();
+    }
+    this._lastPickedState = state.name;
+    const { message, answerField } = templates[pick(Object.keys(templates))](
+      state
+    );
+    return {
+      state,
+      message,
+      answerField,
+      id: (Math.random() * 1000000).toFixed(0),
+    };
+  }
+
+  rate({ state, answerField }, answer) {
+    const correctAnswer = state[answerField];
+    if (!answer) {
+      return {
+        result: 'unrated',
+        correctAnswer,
+      };
+    }
+    if (answer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
+      return {
+        result: 'correct',
+        correctAnswer,
+      };
+    }
+    return {
+      result: 'wrong',
+      correctAnswer,
+    };
+  }
+}
+
 function pick(arr) {
   const i = Math.floor(Math.random() * arr.length);
   return arr[i];
-}
-
-export function nextQuestion() {
-  const state = pick(states);
-  const { message, answerField } = templates[pick(Object.keys(templates))](
-    state
-  );
-  return {
-    state,
-    message,
-    answerField,
-    id: (Math.random() * 1000000).toFixed(0),
-  };
-}
-
-export function rate({ state, answerField }, answer) {
-  const correctAnswer = state[answerField];
-  if (!answer) {
-    return {
-      result: 'unrated',
-      correctAnswer,
-    };
-  }
-  if (answer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
-    return {
-      result: 'correct',
-      correctAnswer,
-    };
-  }
-  return {
-    result: 'wrong',
-    correctAnswer,
-  };
 }
