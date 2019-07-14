@@ -1,29 +1,12 @@
 import levenshtein from 'js-levenshtein';
 import data from './states.json';
+import questions from './questions';
 import { pick } from './util';
 
-const states = data
-  .filter((s) => !s.territory)
-  .map((s) => ({ ...s, biggestCity: s.biggestCity || s.capitol }));
-
-const templates = {
-  abbreviation2State: (state) => ({
-    message: `What state has the abbreviation ${state.abbreviation}?`,
-    answerField: 'name',
-  }),
-  state2Abbreviation: (state) => ({
-    message: `What's the abbreviation of ${state.name}?`,
-    answerField: 'abbreviation',
-  }),
-  capitol: (state) => ({
-    message: `What's the capitol of ${state.name}?`,
-    answerField: 'capitol',
-  }),
-  biggestCity: (state) => ({
-    message: `What's the biggest city of ${state.name}?`,
-    answerField: 'biggestCity',
-  }),
-};
+const states = data.map((state) => ({
+  ...state,
+  biggestCity: state.biggestCity || state.capitol,
+}));
 
 export default class Quiz {
   _lastPickedState;
@@ -34,7 +17,7 @@ export default class Quiz {
       return this.nextQuestion();
     }
     this._lastPickedState = state.name;
-    const { message, answerField } = templates[pick(Object.keys(templates))](
+    const { message, answerField } = questions[pick(Object.keys(questions))](
       state
     );
     return {

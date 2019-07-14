@@ -12,13 +12,6 @@
     "biggestCity": "Anchorage"
   },
   {
-    "name": "American Samoa",
-    "abbreviation": "AS",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
-  },
-  {
     "name": "Arizona",
     "abbreviation": "AZ",
     "capitol": "Phoenix"
@@ -52,20 +45,6 @@
     "biggestCity": "Wilmington"
   },
   {
-    "name": "District Of Columbia",
-    "abbreviation": "DC",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
-  },
-  {
-    "name": "Federated States Of Micronesia",
-    "abbreviation": "FM",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
-  },
-  {
     "name": "Florida",
     "abbreviation": "FL",
     "capitol": "Tallahassee",
@@ -75,13 +54,6 @@
     "name": "Georgia",
     "abbreviation": "GA",
     "capitol": "Atlanta"
-  },
-  {
-    "name": "Guam",
-    "abbreviation": "GU",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
   },
   {
     "name": "Hawaii",
@@ -132,13 +104,6 @@
     "abbreviation": "ME",
     "capitol": "Augusta",
     "biggestCity": "Portland"
-  },
-  {
-    "name": "Marshall Islands",
-    "abbreviation": "MH",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
   },
   {
     "name": "Maryland",
@@ -229,13 +194,6 @@
     "biggestCity": "Fargo"
   },
   {
-    "name": "Northern Mariana Islands",
-    "abbreviation": "MP",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
-  },
-  {
     "name": "Ohio",
     "abbreviation": "OH",
     "capitol": "Columbus"
@@ -252,24 +210,10 @@
     "biggestCity": "Portland"
   },
   {
-    "name": "Palau",
-    "abbreviation": "PW",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
-  },
-  {
     "name": "Pennsylvania",
     "abbreviation": "PA",
     "capitol": "Harrisburg",
     "biggestCity": "Philadelphia"
-  },
-  {
-    "name": "Puerto Rico",
-    "abbreviation": "PR",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
   },
   {
     "name": "Rhode Island",
@@ -309,13 +253,6 @@
     "abbreviation": "VT",
     "capitol": "Montpelier",
     "biggestCity": "Burlington"
-  },
-  {
-    "name": "Virgin Islands",
-    "abbreviation": "VI",
-    "capitol": "",
-    "biggestCity": "",
-    "territory": true
   },
   {
     "name": "Virginia",
