@@ -39,7 +39,8 @@
   max-width: 98vw;
 }
 
-.App input.answer.wrong {
+.App input.answer.wrong,
+.App input.answer.almost {
   color: #882424;
   border-color: #882424;
   animation: shake 750ms ease-in-out 0s 1;

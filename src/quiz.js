@@ -1,3 +1,4 @@
+import levenshtein from 'js-levenshtein';
 import data from './states.json';
 
 const states = data
@@ -56,6 +57,19 @@ export default class Quiz {
         result: 'correct',
         correctAnswer,
       };
+    }
+    if (answerField !== 'abbreviation') {
+      const distance = levenshtein(
+        answer.trim().toLowerCase(),
+        correctAnswer.toLowerCase()
+      );
+      if (distance < 3) {
+        return {
+          result: 'almost',
+          distance,
+          correctAnswer,
+        };
+      }
     }
     return {
       result: 'wrong',

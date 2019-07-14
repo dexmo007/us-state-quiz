@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import Quiz from './Quiz';
+import * as results from './result';
 import './App.css';
 
 class App extends React.Component {
@@ -125,63 +126,17 @@ class App extends React.Component {
 
   renderResult() {
     const rating = this.state.rating;
-    if (rating.result === 'correct') {
-      return (
-        <React.Fragment>
-          <div className="message">
-            <span role="img" aria-label="Congratulations">
-              🎉
-            </span>
-            <span>That is correct!</span>
-          </div>
-          <button onClick={this.nextQuestion}>
-            <span>Next Question</span>
-            <span className="rocket" role="img" aria-label="Go">
-              🚀
-            </span>
-          </button>
-        </React.Fragment>
-      );
+    if (!rating.result) {
+      return;
     }
-    if (rating.result === 'wrong') {
-      return (
-        <React.Fragment>
-          <div className="message">
-            <span role="img" aria-label="Incorrect">
-              ❌
-            </span>
-            <span>Sorry, incorrect!</span>
-          </div>
-          <button onClick={this.giveUp}>
-            <span>Give up</span>
-            <span role="img" aria-label="crying out loud">
-              😩
-            </span>
-          </button>
-        </React.Fragment>
-      );
-    }
-    if (rating.result === 'gave_up') {
-      return (
-        <React.Fragment>
-          <div className="message">
-            <span role="img" aria-label="Incorrect">
-              🧐
-            </span>
-            <span>The correct answer would've been:</span>
-          </div>
-          <span className="text" style={{ textDecoration: 'underline' }}>
-            {rating.correctAnswer}
-          </span>
-          <button onClick={this.nextQuestion}>
-            <span>Next Question</span>
-            <span className="rocket" role="img" aria-label="Go">
-              🚀
-            </span>
-          </button>
-        </React.Fragment>
-      );
-    }
+    const Result = results[rating.result];
+    return (
+      <Result
+        rating={rating}
+        giveUp={this.giveUp}
+        nextQuestion={this.nextQuestion}
+      />
+    );
   }
 }
 
