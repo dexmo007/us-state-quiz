@@ -117,7 +117,12 @@ class App extends React.Component {
             onEntered={() => this.inputRef.current.focus()}
           >
             <div className="container">
-              <form onSubmit={this.onSubmit}>
+              <form
+                onSubmit={this.onSubmit}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+              >
                 <span className="question">{this.state.question.message}</span>
                 <input
                   value={this.state.answer}
@@ -125,6 +130,8 @@ class App extends React.Component {
                   className={classNames('answer', this.state.rating.result)}
                   ref={this.inputRef}
                   spellCheck="false"
+                  autoComplete="off"
+                  autoCorrect="off"
                   readOnly={this.isResolved()}
                 />
               </form>
