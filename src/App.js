@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import GithubCorner from 'react-github-corner';
+import FlipNumbers from 'react-flip-numbers';
 import Quiz from './quiz';
 import * as results from './result';
 import './App.css';
@@ -13,6 +14,7 @@ class App extends React.Component {
     question: null,
     answer: '',
     rating: {}, // absent, correct or wrong
+    streak: 0,
   };
 
   constructor(props) {
@@ -20,6 +22,7 @@ class App extends React.Component {
     this.quiz = new Quiz();
     this.state.question = this.quiz.nextQuestion();
     this.inputRef = React.createRef();
+    this.streakEl = React.createRef();
 
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -66,9 +69,13 @@ class App extends React.Component {
       rating.emoji = pick(results.pools[rating.result].emojis);
     }
     if (rating.result === 'correct') {
-      this.setState({ rating, answer: rating.correctAnswer });
+      this.setState((state) => ({
+        rating,
+        answer: rating.correctAnswer,
+        streak: state.streak + 1,
+      }));
     } else {
-      this.setState({ rating });
+      this.setState({ rating, streak: 0 });
     }
   }
 
@@ -79,6 +86,7 @@ class App extends React.Component {
         result: 'gave_up',
         message: pick(results.pools.gave_up.messages),
         emoji: pick(results.pools.gave_up.emojis),
+        streak: 0,
       },
     }));
   };
@@ -106,6 +114,19 @@ class App extends React.Component {
           <USFlag height="1em" style={{ margin: '.2em' }} />
           US State Quiz
         </h1>
+        <div>
+          <span style={{ fontSize: '.7em' }}>Streak</span>
+          <FlipNumbers
+            play
+            color="#fff"
+            background="#282c34"
+            width={50}
+            height={50}
+            delay={0.175}
+            duration={0.175}
+            numbers={`${this.state.streak}`}
+          />
+        </div>
         <SwitchTransition>
           <CSSTransition
             key={this.state.question.id}
