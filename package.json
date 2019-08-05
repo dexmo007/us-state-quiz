@@ -10,7 +10,7 @@
     "react-flip-numbers": "^3.0.4",
     "react-github-corner": "^2.3.0",
     "react-scripts": "3.0.1",
-    "react-transition-group": "^4.2.1"
+    "react-transition-group": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
