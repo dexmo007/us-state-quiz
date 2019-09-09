@@ -12,16 +12,6 @@ jobs:
           version: 12
       - run: yarn install
       - run: yarn build
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          version: 12
-      - run: yarn install
-      - run: yarn build
       - uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: build
