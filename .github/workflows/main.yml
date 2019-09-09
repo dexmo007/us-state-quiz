@@ -10,6 +10,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           version: 12
+      - run: yarn install
       - run: yarn build
   deploy:
     needs: build
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/setup-node@master
         with:
           version: 12
+      - run: yarn install
+      - run: yarn build
       - uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: build
