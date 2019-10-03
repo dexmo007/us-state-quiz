@@ -6,7 +6,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "js-levenshtein": "^1.1.6",
-    "react": "^16.9.0",
+    "react": "^16.10.2",
     "react-dom": "^16.9.0",
     "react-flip-numbers": "^3.0.4",
     "react-github-corner": "^2.3.0",
