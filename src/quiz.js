@@ -2,6 +2,7 @@ import levenshtein from 'js-levenshtein';
 import data from './states.json';
 import questions from './questions';
 import { pick } from './util';
+import { pools } from './result';
 
 const states = data.map((state) => ({
   ...state,
@@ -10,8 +11,11 @@ const states = data.map((state) => ({
 
 export default class Quiz {
   _lastPickedState;
+  _question;
+  _previousRating;
 
   nextQuestion(questionTypes) {
+    this._previousRating = null;
     const state = pick(states);
     if (this._lastPickedState === state.name) {
       return this.nextQuestion();
@@ -21,7 +25,7 @@ export default class Quiz {
     const { message, answerField, type } = questions[questionType].generate(
       state
     );
-    return {
+    this._question = {
       type,
       questionType,
       state,
@@ -29,9 +33,31 @@ export default class Quiz {
       answerField,
       id: (Math.random() * 1000000).toFixed(0),
     };
+    return this._question;
   }
 
-  rate({ state, answerField }, answer) {
+  rate(answer) {
+    const rating = this.createRating(this._rate(answer));
+    this._previousRating = rating;
+    return rating;
+  }
+
+  giveUp() {
+    const rating = this.createRating({
+      result: 'gave_up',
+      correctAnswer: this._question.state[this._question.answerField],
+      message: pick(
+        pools[this._question.type === 'MAP' ? 'gave_up_map' : 'gave_up']
+          .messages
+      ),
+      emoji: pick(pools.gave_up.emojis),
+    });
+    this._previousRating = rating;
+    return rating;
+  }
+
+  _rate(answer) {
+    const { state, answerField } = this._question;
     const correctAnswer = state[answerField];
     if (!answer) {
       return {
@@ -62,5 +88,17 @@ export default class Quiz {
       result: 'wrong',
       correctAnswer,
     };
+  }
+
+  createRating(rating) {
+    if (this._previousRating && rating.result === this._previousRating.result) {
+      rating.emoji = this._previousRating.emoji;
+      rating.message = this._previousRating.message;
+    } else {
+      rating.message = pick(pools[rating.result].messages);
+      rating.emoji = pick(pools[rating.result].emojis);
+    }
+
+    return rating;
   }
 }

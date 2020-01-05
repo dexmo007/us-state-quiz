@@ -1,15 +1,14 @@
 import React from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import Modal from 'react-modal';
 import Streak from './components/Streak';
 import Quiz from './quiz';
 import * as results from './result';
 import './Game.css';
 import questions from './questions';
-import { pick } from './util';
 import { TextInput, MapInput } from './components/input';
 import GearCorner from './components/GearCorner';
-import Checkbox from './components/Checkbox';
+import { initAllChecked, getChecked } from './components/CheckboxGroup';
+import GameSettings from './GameSettings';
 
 class Game extends React.Component {
   state = {
@@ -18,32 +17,25 @@ class Game extends React.Component {
     rating: {}, // absent, correct or wrong
     streak: 0,
     configModalOpen: false,
-    questionTypes: Object.keys(questions).reduce(
-      (types, type) => ({ ...types, [type]: true }),
-      {}
-    ),
+    questionTypes: initAllChecked(Object.keys(questions)),
   };
 
   constructor(props) {
     super(props);
     this.quiz = new Quiz();
-    this.state.question = this.quiz.nextQuestion();
-
-    this.onSubmit = this.onSubmit.bind(this);
+    this.state.question = this.quiz.nextQuestion(
+      getChecked(this.state.questionTypes)
+    );
   }
 
   nextQuestion = () => {
     this.setState((state) => ({
       answer: '',
-      question: this.quiz.nextQuestion(
-        Object.entries(state.questionTypes)
-          .filter(([, checked]) => checked)
-          .map(([type]) => type)
-      ),
+      question: this.quiz.nextQuestion(getChecked(state.questionTypes)),
     }));
   };
 
-  onSubmit(answer) {
+  onSubmit = (answer) => {
     if (!answer) {
       return;
     }
@@ -51,16 +43,7 @@ class Game extends React.Component {
       this.nextQuestion();
       return;
     }
-    const previousRating = this.state.rating;
-    const rating = this.quiz.rate(this.state.question, answer);
-
-    if (rating.result === previousRating.result) {
-      rating.emoji = previousRating.emoji;
-      rating.message = previousRating.message;
-    } else {
-      rating.message = pick(results.pools[rating.result].messages);
-      rating.emoji = pick(results.pools[rating.result].emojis);
-    }
+    const rating = this.quiz.rate(answer);
     if (rating.result === 'correct') {
       this.setState((state) => ({
         rating,
@@ -70,30 +53,20 @@ class Game extends React.Component {
     } else {
       this.setState({ rating, streak: 0, answer });
     }
-  }
+  };
 
   giveUp = () => {
-    this.setState((state) => ({
-      rating: {
-        ...state.rating,
-        result: 'gave_up',
-        message: pick(
-          results.pools[
-            state.question.type === 'MAP' ? 'gave_up_map' : 'gave_up'
-          ].messages
-        ),
-        emoji: pick(results.pools.gave_up.emojis),
-        streak: 0,
-      },
-    }));
+    this.setState({
+      rating: this.quiz.giveUp(),
+    });
   };
 
   render() {
     const QuizInput = this.state.question.type === 'MAP' ? MapInput : TextInput;
     return (
       <React.Fragment>
-        <Streak value={this.state.streak} />
         <GearCorner onClick={() => this.setState({ configModalOpen: true })} />
+        <Streak value={this.state.streak} />
         <SwitchTransition>
           <CSSTransition
             key={this.state.question.id}
@@ -131,70 +104,21 @@ class Game extends React.Component {
             </div>
           </CSSTransition>
         </SwitchTransition>
-        <Modal
+        <GameSettings
           isOpen={this.state.configModalOpen}
-          onRequestClose={() => this.setState({ configModalOpen: false })}
-          style={{
-            content: {
-              background: '#282c34',
-              display: 'flex',
-              flexDirection: 'column',
-            },
-          }}
-          closeTimeoutMS={250}
-        >
-          <h1>What games do you wanna play?</h1>
-          <div className="d-flex-v">
-            {Object.entries(questions).map(
-              ([questionType, { displayName, description }]) => (
-                <Checkbox
-                  style={{
-                    margin: '.3em',
-                  }}
-                  key={questionType}
-                  label={displayName}
-                  subtitle={description}
-                  checked={this.state.questionTypes[questionType]}
-                  onChange={(e) => {
-                    const checked = e.target.checked;
-                    this.setState((state) => ({
-                      questionTypes: {
-                        ...state.questionTypes,
-                        [questionType]: checked,
-                      },
-                    }));
-                  }}
-                />
-              )
-            )}
-          </div>
-          <button
-            className="fit-content"
-            style={{
-              marginTop: 'auto',
-              alignSelf: 'center',
-            }}
-            onClick={() =>
-              this.setState(
-                {
-                  configModalOpen: false,
-                },
-                () => {
-                  if (
-                    !this.state.questionTypes[this.state.question.questionType]
-                  ) {
-                    this.nextQuestion();
-                  }
-                }
-              )
+          questionTypes={this.state.questionTypes}
+          onQuestionTypesChanged={(questionTypes) =>
+            this.setState({ questionTypes })
+          }
+          onClose={() => {
+            this.setState({
+              configModalOpen: false,
+            });
+            if (!this.state.questionTypes[this.state.question.questionType]) {
+              this.nextQuestion();
             }
-          >
-            <span>Go!</span>
-            <span className="rocket" role="img" aria-label="Go">
-              🚀
-            </span>
-          </button>
-        </Modal>
+          }}
+        />
       </React.Fragment>
     );
   }
@@ -205,17 +129,12 @@ class Game extends React.Component {
       const NoResult = results.none;
       return <NoResult />;
     }
+    let Result;
     if (rating.result === 'gave_up' && this.state.question.type === 'MAP') {
-      const Result = results.gave_up_map;
-      return (
-        <Result
-          rating={rating}
-          giveUp={this.giveUp}
-          nextQuestion={this.nextQuestion}
-        />
-      );
+      Result = results.gave_up_map;
+    } else {
+      Result = results[rating.result];
     }
-    const Result = results[rating.result];
     return (
       <Result
         rating={rating}
