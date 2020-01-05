@@ -1,107 +1,10 @@
 import React from 'react';
-import classNames from 'classnames';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import GithubCorner from 'react-github-corner';
-import FlipNumbers from 'react-flip-numbers';
-import Quiz from './quiz';
-import * as results from './result';
 import './App.css';
-import { pick } from './util';
 import { ReactComponent as USFlag } from './us.svg';
+import Game from './Game';
 
 class App extends React.Component {
-  state = {
-    question: null,
-    answer: '',
-    rating: {}, // absent, correct or wrong
-    streak: 0,
-  };
-
-  constructor(props) {
-    super(props);
-    this.quiz = new Quiz();
-    this.state.question = this.quiz.nextQuestion();
-    this.inputRef = React.createRef();
-    this.streakEl = React.createRef();
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.inputRef.current.focus();
-  }
-
-  nextQuestion = () => {
-    this.setState({
-      answer: '',
-      question: this.quiz.nextQuestion(),
-    });
-    this.inputRef.current.focus();
-  };
-
-  onSubmit(event) {
-    event.preventDefault();
-    if (!this.state.answer) {
-      return;
-    }
-    if (this.state.rating.result === 'correct') {
-      this.nextQuestion();
-      return;
-    }
-    const previousRating = this.state.rating;
-    const rating = this.quiz.rate(this.state.question, this.state.answer);
-
-    if (
-      (rating.result === 'wrong' && previousRating.result === 'wrong') ||
-      (rating.result === 'almost' && previousRating.result === 'almost')
-    ) {
-      // retrigger animation if still wrong
-      const el = this.inputRef.current;
-      el.style.animation = 'none';
-      void el.offsetHeight; /* trigger reflow */
-      el.style.animation = null;
-    }
-    if (rating.result === previousRating.result) {
-      rating.emoji = previousRating.emoji;
-      rating.message = previousRating.message;
-    } else {
-      rating.message = pick(results.pools[rating.result].messages);
-      rating.emoji = pick(results.pools[rating.result].emojis);
-    }
-    if (rating.result === 'correct') {
-      this.setState((state) => ({
-        rating,
-        answer: rating.correctAnswer,
-        streak: state.streak + 1,
-      }));
-    } else {
-      this.setState({ rating, streak: 0 });
-    }
-  }
-
-  giveUp = () => {
-    this.setState((state) => ({
-      rating: {
-        ...state.rating,
-        result: 'gave_up',
-        message: pick(results.pools.gave_up.messages),
-        emoji: pick(results.pools.gave_up.emojis),
-        streak: 0,
-      },
-    }));
-  };
-
-  onChange = (event) => {
-    this.setState({ answer: event.target.value });
-  };
-
-  isResolved() {
-    return (
-      this.state.rating.result === 'correct' ||
-      this.state.rating.result === 'gave_up'
-    );
-  }
-
   render() {
     return (
       <div className="App">
@@ -109,83 +12,20 @@ class App extends React.Component {
           href="https://github.com/dexmo007/us-state-quiz"
           bannerColor="#fff"
           octoColor="#282c34"
+          svgStyle={{
+            maxHeight: '7vmin',
+            maxWidth: '7vmin',
+          }}
         />
-        <h1 className="d-flex" style={{ alignItems: 'center' }}>
+        <div className="title">
           <USFlag height="1em" style={{ margin: '.2em' }} />
-          US State Quiz
-        </h1>
-        <div>
-          <span style={{ fontSize: '.7em' }}>Streak</span>
-          <FlipNumbers
-            play
-            color="#fff"
-            background="#282c34"
-            width={50}
-            height={50}
-            delay={0.175}
-            duration={0.175}
-            numbers={`${this.state.streak}`}
-          />
+          <span className="d-flex" style={{ alignItems: 'center' }}>
+            US State Quiz
+          </span>
         </div>
-        <SwitchTransition>
-          <CSSTransition
-            key={this.state.question.id}
-            addEndListener={(node, done) =>
-              node.addEventListener('transitionend', done, false)
-            }
-            classNames="question-transition"
-            onExited={() => this.setState({ rating: {} })}
-            onEntered={() => this.inputRef.current.focus()}
-          >
-            <div className="container">
-              <form
-                onSubmit={this.onSubmit}
-                autoComplete="off"
-                autoCorrect="off"
-                spellCheck="false"
-              >
-                <span className="question">{this.state.question.message}</span>
-                <input
-                  value={this.state.answer}
-                  onChange={this.onChange}
-                  className={classNames('answer', this.state.rating.result)}
-                  ref={this.inputRef}
-                  spellCheck="false"
-                  autoComplete="off"
-                  autoCorrect="off"
-                  readOnly={this.isResolved()}
-                />
-              </form>
-              <SwitchTransition>
-                <CSSTransition
-                  key={this.state.rating.result || 'none'}
-                  addEndListener={(node, done) =>
-                    node.addEventListener('transitionend', done, false)
-                  }
-                  classNames="result-msg"
-                >
-                  <div className="d-flex-v">{this.renderResult()}</div>
-                </CSSTransition>
-              </SwitchTransition>
-            </div>
-          </CSSTransition>
-        </SwitchTransition>
-      </div>
-    );
-  }
 
-  renderResult() {
-    const rating = this.state.rating;
-    if (!rating.result) {
-      return;
-    }
-    const Result = results[rating.result];
-    return (
-      <Result
-        rating={rating}
-        giveUp={this.giveUp}
-        nextQuestion={this.nextQuestion}
-      />
+        <Game />
+      </div>
     );
   }
 }

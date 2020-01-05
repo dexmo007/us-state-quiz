@@ -1,4 +1,5 @@
 import React from 'react';
+import './result.css';
 
 export const messages = [
   'Sorry, incorrect!',
@@ -19,7 +20,7 @@ export default function wrong(props) {
         </span>
         <span>{props.rating.message}</span>
       </div>
-      <button onClick={props.giveUp}>
+      <button className="fit-content" onClick={props.giveUp}>
         <span>Give up</span>
         <span role="img" aria-label="crying out loud">
           😩

@@ -1,4 +1,5 @@
 import React from 'react';
+import './result.css';
 
 export const emojis = ['🧐'];
 export const messages = ["The correct answer would've been:"];
@@ -12,10 +13,13 @@ export default function gave_up(props) {
         </span>
         <span>{props.rating.message}</span>
       </div>
-      <span className="text" style={{ textDecoration: 'underline' }}>
+      <span
+        className="text"
+        style={{ textDecoration: 'underline', padding: '1em' }}
+      >
         {props.rating.correctAnswer}
       </span>
-      <button onClick={props.nextQuestion}>
+      <button className="fit-content" onClick={props.nextQuestion}>
         <span>Next Question</span>
         <span className="rocket" role="img" aria-label="Go">
           🚀

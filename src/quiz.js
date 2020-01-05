@@ -5,22 +5,25 @@ import { pick } from './util';
 
 const states = data.map((state) => ({
   ...state,
-  biggestCity: state.biggestCity || state.capitol,
+  biggestCity: state.biggestCity || state.capital,
 }));
 
 export default class Quiz {
   _lastPickedState;
 
-  nextQuestion() {
+  nextQuestion(questionTypes) {
     const state = pick(states);
     if (this._lastPickedState === state.name) {
       return this.nextQuestion();
     }
     this._lastPickedState = state.name;
-    const { message, answerField } = questions[pick(Object.keys(questions))](
+    const questionType = pick(questionTypes || Object.keys(questions));
+    const { message, answerField, type } = questions[questionType].generate(
       state
     );
     return {
+      type,
+      questionType,
       state,
       message,
       answerField,
