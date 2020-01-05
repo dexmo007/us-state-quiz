@@ -1,0 +1,8 @@
+.GearCorner.gear {
+  cursor: pointer;
+  transform: rotate(0);
+  transition: rotate 175ms ease-in-out;
+}
+.GearCorner.gear:hover {
+  transform: rotate(10deg);
+}

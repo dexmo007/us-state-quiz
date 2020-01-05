@@ -1,0 +1,11 @@
+.USMap path {
+  pointer-events: all;
+}
+.USMap path:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.USMap path.readonly:hover {
+  opacity: 1;
+  cursor: default;
+}

@@ -1,0 +1,46 @@
+.App .question {
+  padding: 1em;
+}
+
+.question-transition-enter {
+  transform: translateX(-100vw);
+}
+.question-transition-enter-active {
+  transform: scale(1);
+  transition: transform 350ms ease-in-out;
+}
+
+.question-transition-exit {
+  transform: translateX(0);
+}
+
+.question-transition-exit-active {
+  transform: translateX(100vw);
+  transition: transform 250ms ease-in-out;
+}
+
+.App .message {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-msg-enter {
+  transform: scale(0);
+  opacity: 0;
+}
+.result-msg-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
+}
+.result-msg-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.result-msg-exit-active {
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
+}
