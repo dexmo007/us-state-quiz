@@ -28,4 +28,5 @@ function MapInput(props) {
   );
 }
 MapInput.propTypes = propTypes;
+MapInput.fullWidth = true;
 export default MapInput;

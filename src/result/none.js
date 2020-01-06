@@ -1,7 +1,7 @@
 import React from 'react';
 import './result.css';
 
-export default function none() {
+export default function none(props) {
   return (
     <React.Fragment>
       <div
@@ -14,15 +14,11 @@ export default function none() {
         </span>
         <span>No result</span>
       </div>
-      <button
-        className="fit-content"
-        aria-hidden="true"
-        style={{ visibility: 'hidden' }}
-      >
-        <span>No result</span>
-        <span role="img" aria-hidden="true">
-          ❌
+      <button className="fit-content" aria-hidden="true" onClick={props.giveUp}>
+        <span role="img" aria-labelledby="brainfuck">
+          🤯
         </span>
+        <span>Don't know</span>
       </button>
     </React.Fragment>
   );

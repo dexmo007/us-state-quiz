@@ -12,13 +12,23 @@ export default function gave_up(props) {
           {props.rating.emoji}
         </span>
         <span>{props.rating.message}</span>
+        {props.narrow && (
+          <span
+            className="text"
+            style={{ textDecoration: 'underline', marginLeft: '.5em' }}
+          >
+            {props.rating.correctAnswer}
+          </span>
+        )}
       </div>
-      <span
-        className="text"
-        style={{ textDecoration: 'underline', padding: '1em' }}
-      >
-        {props.rating.correctAnswer}
-      </span>
+      {!props.narrow && (
+        <span
+          className="text"
+          style={{ textDecoration: 'underline', padding: '1em' }}
+        >
+          {props.rating.correctAnswer}
+        </span>
+      )}
       <button className="fit-content" onClick={props.nextQuestion}>
         <span>Next Question</span>
         <span className="rocket" role="img" aria-label="Go">

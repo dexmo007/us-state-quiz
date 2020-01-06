@@ -1,13 +1,8 @@
 import levenshtein from 'js-levenshtein';
-import data from './states.json';
 import questions from './questions';
-import { pick } from './util';
-import { pools } from './result';
-
-const states = data.map((state) => ({
-  ...state,
-  biggestCity: state.biggestCity || state.capital,
-}));
+import { pick } from '../util/rng';
+import { pools } from '../result';
+import states from './states';
 
 export default class Quiz {
   _lastPickedState;

@@ -40,4 +40,13 @@ export default {
       type: 'MAP',
     }),
   },
+  identifyStateOnMap: {
+    displayName: 'Identify state on map',
+    description: 'Identify a marked state on the map.',
+    generate: (state) => ({
+      message: 'Which state is shown?',
+      answerField: 'name',
+      type: 'MAP_TEXT',
+    }),
+  },
 };

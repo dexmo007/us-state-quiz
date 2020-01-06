@@ -1,7 +1,7 @@
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import './App.css';
-import { ReactComponent as USFlag } from './us.svg';
+import { ReactComponent as USFlag } from './assets/us.svg';
 import Game from './Game';
 
 class App extends React.Component {

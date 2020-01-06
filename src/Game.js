@@ -1,14 +1,13 @@
 import React from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import Streak from './components/Streak';
-import Quiz from './quiz';
+import { Quiz, questions } from './quiz';
 import * as results from './result';
-import './Game.css';
-import questions from './questions';
-import { TextInput, MapInput } from './components/input';
+import { TextInput, inputs } from './components/input';
 import GearCorner from './components/GearCorner';
 import { initAllChecked, getChecked } from './components/CheckboxGroup';
 import GameSettings from './GameSettings';
+import './Game.css';
 
 class Game extends React.Component {
   state = {
@@ -58,11 +57,14 @@ class Game extends React.Component {
   giveUp = () => {
     this.setState({
       rating: this.quiz.giveUp(),
+      streak: 0,
     });
   };
 
   render() {
-    const QuizInput = this.state.question.type === 'MAP' ? MapInput : TextInput;
+    const QuizInput = !this.state.question.type
+      ? TextInput
+      : inputs[this.state.question.type];
     return (
       <React.Fragment>
         <GearCorner onClick={() => this.setState({ configModalOpen: true })} />
@@ -79,7 +81,7 @@ class Game extends React.Component {
             <div
               className="main"
               style={{
-                width: this.state.question.type === 'MAP' ? '100vw' : null,
+                width: QuizInput.fullWidth ? '100vw' : null,
               }}
             >
               <QuizInput
@@ -127,7 +129,7 @@ class Game extends React.Component {
     const rating = this.state.rating;
     if (!rating.result) {
       const NoResult = results.none;
-      return <NoResult />;
+      return <NoResult giveUp={this.giveUp} />;
     }
     let Result;
     if (rating.result === 'gave_up' && this.state.question.type === 'MAP') {
@@ -140,6 +142,7 @@ class Game extends React.Component {
         rating={rating}
         giveUp={this.giveUp}
         nextQuestion={this.nextQuestion}
+        narrow={this.state.question.type === 'MAP_TEXT'}
       />
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import CheckboxGroup from './components/CheckboxGroup';
-import questions from './questions';
+import { questions } from './quiz';
 
 function GameSettings(props) {
   return (
