@@ -58,6 +58,9 @@ button {
   transition: background-color 250ms ease-in-out;
   margin: 0 5px;
 }
+button::-moz-focus-inner {
+  border: 0;
+}
 button.fit-content {
   width: fit-content;
   padding: 0.5em 1em;
