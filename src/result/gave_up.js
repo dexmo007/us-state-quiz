@@ -1,8 +1,5 @@
 import React from 'react';
-import './result.css';
-
-export const emojis = ['🧐'];
-export const messages = ["The correct answer would've been:"];
+import NextQuestionBtn from './NextQuestionBtn';
 
 export default function gave_up(props) {
   return (
@@ -17,7 +14,7 @@ export default function gave_up(props) {
             className="text"
             style={{ textDecoration: 'underline', marginLeft: '.5em' }}
           >
-            {props.rating.correctAnswer}
+            {props.question.correctAnswer}
           </span>
         )}
       </div>
@@ -26,15 +23,11 @@ export default function gave_up(props) {
           className="text"
           style={{ textDecoration: 'underline', padding: '1em' }}
         >
-          {props.rating.correctAnswer}
+          {props.question.correctAnswer}
         </span>
       )}
-      <button className="fit-content" onClick={props.nextQuestion}>
-        <span>Next Question</span>
-        <span className="rocket" role="img" aria-label="Go">
-          🚀
-        </span>
-      </button>
+
+      <NextQuestionBtn nextQuestion={props.nextQuestion} />
     </React.Fragment>
   );
 }

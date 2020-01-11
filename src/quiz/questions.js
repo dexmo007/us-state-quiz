@@ -1,52 +1,47 @@
-export default {
-  abbreviation2State: {
+export default [
+  {
+    category: 'abbreviation2State',
     displayName: 'Abbreviation → State',
     description: 'Name the state for a given abbreviation.',
-    generate: (state) => ({
-      message: `What state has the abbreviation ${state.abbreviation}?`,
-      answerField: 'name',
-    }),
+    answerField: 'name',
+    getMessage: (state) =>
+      `What state has the abbreviation ${state.abbreviation}?`,
   },
-  state2Abbreviation: {
+  {
+    category: 'state2Abbreviation',
     displayName: 'State → Abbreviation',
     description: 'Name the abbrevation for a given state.',
-    generate: (state) => ({
-      message: `What's the abbreviation of ${state.name}?`,
-      answerField: 'abbreviation',
-    }),
+    answerField: 'abbreviation',
+    getMessage: (state) => `What's the abbreviation of ${state.name}?`,
   },
-  capital: {
+  {
+    category: 'capital',
     displayName: 'Capital',
     description: 'Name the capital of the given state.',
-    generate: (state) => ({
-      message: `What's the capital of ${state.name}?`,
-      answerField: 'capital',
-    }),
+    answerField: 'capital',
+    getMessage: (state) => `What's the capital of ${state.name}?`,
   },
-  biggestCity: {
+  {
+    category: 'biggestCity',
     displayName: 'Biggest city',
     description: 'Name the biggest city of a given state.',
-    generate: (state) => ({
-      message: `What's the biggest city of ${state.name}?`,
-      answerField: 'biggestCity',
-    }),
+    answerField: 'biggestCity',
+    getMessage: (state) => `What's the biggest city of ${state.name}?`,
   },
-  stateLocation: {
+  {
+    category: 'stateLocation',
     displayName: 'State location',
     description: 'Locate the given state on the map.',
-    generate: (state) => ({
-      message: `Where is ${state.name}?`,
-      answerField: 'abbreviation',
-      type: 'MAP',
-    }),
+    answerField: 'abbreviation',
+    inputType: 'MAP',
+    getMessage: (state) => `Where is ${state.name}?`,
   },
-  identifyStateOnMap: {
+  {
+    category: 'identifyStateOnMap',
     displayName: 'Identify state on map',
     description: 'Identify a marked state on the map.',
-    generate: (state) => ({
-      message: 'Which state is shown?',
-      answerField: 'name',
-      type: 'MAP_TEXT',
-    }),
+    answerField: 'name',
+    inputType: 'MAP_TEXT',
+    getMessage: () => 'Which state is shown?',
   },
-};
+];

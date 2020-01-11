@@ -1,5 +1,4 @@
 import React from 'react';
-import './result.css';
 
 export default function none(props) {
   return (

@@ -1,28 +1,12 @@
 import React from 'react';
-
-export const emojis = ['❌', '🤔', '🤨'];
-export const messages = [
-  'So close!',
-  'Almost!',
-  'Uh - close!',
-  'You just missed it!',
-];
+import Message from './Message';
+import GiveUpBtn from './GiveUpBtn';
 
 export default function almost(props) {
   return (
     <React.Fragment>
-      <div className="message">
-        <span role="img" aria-label="Incorrect">
-          {props.rating.emoji}
-        </span>
-        <span>{props.rating.message}</span>
-      </div>
-      <button className="fit-content" onClick={props.giveUp}>
-        <span>Give up</span>
-        <span role="img" aria-label="crying out loud">
-          😩
-        </span>
-      </button>
+      <Message rating={props.rating} iconLabel="Almost" />
+      <GiveUpBtn giveUp={props.giveUp} />
     </React.Fragment>
   );
 }

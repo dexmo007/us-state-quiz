@@ -1,31 +1,12 @@
 import React from 'react';
-import './result.css';
-
-export const messages = [
-  'Sorry, incorrect!',
-  'Nah!',
-  'Hell no!',
-  'Negative!',
-  'No way!',
-  'Yeah, no!',
-];
-export const emojis = ['❌', '🤬', '🤮', '🤦‍♂️', '🤦‍♀️', '💩'];
+import Message from './Message';
+import GiveUpBtn from './GiveUpBtn';
 
 export default function wrong(props) {
   return (
     <React.Fragment>
-      <div className="message">
-        <span role="img" aria-label="Incorrect">
-          {props.rating.emoji}
-        </span>
-        <span>{props.rating.message}</span>
-      </div>
-      <button className="fit-content" onClick={props.giveUp}>
-        <span>Give up</span>
-        <span role="img" aria-label="crying out loud">
-          😩
-        </span>
-      </button>
+      <Message rating={props.rating} iconLabel="Incorrect" />
+      <GiveUpBtn giveUp={props.giveUp} />
     </React.Fragment>
   );
 }

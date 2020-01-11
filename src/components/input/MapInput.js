@@ -12,14 +12,8 @@ function MapInput(props) {
         key={Math.random()}
         className={classNames('answer', props.rating.result)}
         style={{ height: 'auto' }}
-        readOnly={
-          props.rating.result === 'correct' || props.rating.result === 'gave_up'
-        }
-        highlight={
-          props.rating.result === 'correct' || props.rating.result === 'gave_up'
-            ? props.rating.correctAnswer
-            : null
-        }
+        readOnly={props.rating.resolved}
+        highlight={props.rating.resolved ? props.question.correctAnswer : null}
         onClick={(e) => {
           props.onSubmit(e.target.dataset.name);
         }}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import FlipNumbers from 'react-flip-numbers';
 import './Streak.css';
 
@@ -50,4 +51,4 @@ Streak.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default Streak;
+export default connect(({ streak }) => ({ value: streak }))(Streak);

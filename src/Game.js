@@ -1,82 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import Streak from './components/Streak';
-import { Quiz, questions } from './quiz';
 import * as results from './result';
-import { TextInput, inputs } from './components/input';
-import GearCorner from './components/GearCorner';
-import { initAllChecked, getChecked } from './components/CheckboxGroup';
-import GameSettings from './GameSettings';
 import './Game.css';
+import { nextQuestion, giveUp, answer } from './store/actions';
+import { chooseInput } from './components/input';
+import { rating, question } from './prop-types';
 
 class Game extends React.Component {
-  state = {
-    question: null,
-    answer: '',
-    rating: {}, // absent, correct or wrong
-    streak: 0,
-    configModalOpen: false,
-    questionTypes: initAllChecked(Object.keys(questions)),
-  };
-
-  constructor(props) {
-    super(props);
-    this.quiz = new Quiz();
-    this.state.question = this.quiz.nextQuestion(
-      getChecked(this.state.questionTypes)
-    );
-  }
-
-  nextQuestion = () => {
-    this.setState((state) => ({
-      answer: '',
-      question: this.quiz.nextQuestion(getChecked(state.questionTypes)),
-    }));
-  };
-
-  onSubmit = (answer) => {
-    if (!answer) {
-      return;
-    }
-    if (this.state.rating.result === 'correct') {
-      this.nextQuestion();
-      return;
-    }
-    const rating = this.quiz.rate(answer);
-    if (rating.result === 'correct') {
-      this.setState((state) => ({
-        rating,
-        answer: rating.correctAnswer,
-        streak: state.streak + 1,
-      }));
-    } else {
-      this.setState({ rating, streak: 0, answer });
-    }
-  };
-
-  giveUp = () => {
-    this.setState({
-      rating: this.quiz.giveUp(),
-      streak: 0,
-    });
-  };
-
   render() {
-    const QuizInput = !this.state.question.type
-      ? TextInput
-      : inputs[this.state.question.type];
+    const QuizInput = chooseInput(this.props.question);
     return (
       <React.Fragment>
-        <GearCorner onClick={() => this.setState({ configModalOpen: true })} />
-        <Streak value={this.state.streak} />
         <SwitchTransition>
           <CSSTransition
-            key={this.state.question.id}
+            key={this.props.question.id}
             addEndListener={(node, done) =>
               node.addEventListener('transitionend', done, false)
             }
             classNames="question-transition"
-            onExited={() => this.setState({ rating: {} })}
           >
             <div
               className="main"
@@ -85,67 +28,65 @@ class Game extends React.Component {
               }}
             >
               <QuizInput
-                question={this.state.question}
-                rating={this.state.rating}
-                value={this.state.answer}
-                onSubmit={this.onSubmit}
-              ></QuizInput>
+                question={this.props.question}
+                rating={this.props.rating}
+                onSubmit={this.props.submitAnswer}
+              />
               <SwitchTransition>
                 <CSSTransition
-                  key={this.state.rating.result || 'none'}
+                  key={this.props.rating.result || 'none'}
                   addEndListener={(node, done) =>
                     node.addEventListener('transitionend', done, false)
                   }
                   classNames="result-msg"
                 >
                   <div className="d-flex-v justify-center align-center">
-                    {this.renderResult()}
+                    {this.renderResult(QuizInput)}
                   </div>
                 </CSSTransition>
               </SwitchTransition>
             </div>
           </CSSTransition>
         </SwitchTransition>
-        <GameSettings
-          isOpen={this.state.configModalOpen}
-          questionTypes={this.state.questionTypes}
-          onQuestionTypesChanged={(questionTypes) =>
-            this.setState({ questionTypes })
-          }
-          onClose={() => {
-            this.setState({
-              configModalOpen: false,
-            });
-            if (!this.state.questionTypes[this.state.question.questionType]) {
-              this.nextQuestion();
-            }
-          }}
-        />
       </React.Fragment>
     );
   }
 
-  renderResult() {
-    const rating = this.state.rating;
+  renderResult(input) {
+    const rating = this.props.rating;
     if (!rating.result) {
       const NoResult = results.none;
-      return <NoResult giveUp={this.giveUp} />;
+      return <NoResult giveUp={this.props.giveUp} />;
     }
-    let Result;
-    if (rating.result === 'gave_up' && this.state.question.type === 'MAP') {
-      Result = results.gave_up_map;
-    } else {
-      Result = results[rating.result];
-    }
+    const Result = rating.component;
     return (
       <Result
+        question={this.props.question}
         rating={rating}
-        giveUp={this.giveUp}
-        nextQuestion={this.nextQuestion}
-        narrow={this.state.question.type === 'MAP_TEXT'}
+        giveUp={this.props.giveUp}
+        nextQuestion={this.props.nextQuestion}
+        narrow={input.narrowResult}
       />
     );
   }
 }
 
-export default Game;
+Game.propTypes = {
+  nextQuestion: PropTypes.func.isRequired,
+  submitAnswer: PropTypes.func.isRequired,
+  giveUp: PropTypes.func.isRequired,
+  rating: rating.isRequired,
+  question: question.isRequired,
+};
+
+export default connect(
+  ({ question, rating }) => ({
+    question,
+    rating,
+  }),
+  (dispatch) => ({
+    nextQuestion: () => dispatch(nextQuestion()),
+    giveUp: () => dispatch(giveUp()),
+    submitAnswer: (answerText) => dispatch(answer(answerText)),
+  })
+)(Game);
