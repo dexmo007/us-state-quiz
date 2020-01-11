@@ -45,6 +45,11 @@ span[role='img'] {
 .align-center {
   align-items: center;
 }
+@media (max-width: 575.98px) {
+  .hidden-xs {
+    display: none;
+  }
+}
 
 button {
   color: white;

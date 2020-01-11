@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import CheckboxGroup from './components/CheckboxGroup';
-import GearCorner from './components/GearCorner';
-import { questions } from './quiz';
-import { setQuestionCategories } from './store/actions';
+import CheckboxGroup from './CheckboxGroup';
+import GearCorner from './GearCorner';
+import { questions } from '../quiz';
+import { setQuestionCategories } from '../store/actions';
 
 function GameSettings(props) {
   const [open, setOpen] = useState(false);

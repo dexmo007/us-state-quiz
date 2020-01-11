@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import * as results from './result';
+import Result from './result/Result';
 import './Game.css';
 import { nextQuestion, giveUp, answer } from './store/actions';
 import { chooseInput } from './components/input';
@@ -32,41 +32,17 @@ class Game extends React.Component {
                 rating={this.props.rating}
                 onSubmit={this.props.submitAnswer}
               />
-              <SwitchTransition>
-                <CSSTransition
-                  key={this.props.rating.result || 'none'}
-                  addEndListener={(node, done) =>
-                    node.addEventListener('transitionend', done, false)
-                  }
-                  classNames="result-msg"
-                >
-                  <div className="d-flex-v justify-center align-center">
-                    {this.renderResult(QuizInput)}
-                  </div>
-                </CSSTransition>
-              </SwitchTransition>
+              <Result
+                question={this.props.question}
+                rating={this.props.rating}
+                giveUp={this.props.giveUp}
+                nextQuestion={this.props.nextQuestion}
+                quizInput={QuizInput}
+              />
             </div>
           </CSSTransition>
         </SwitchTransition>
       </React.Fragment>
-    );
-  }
-
-  renderResult(input) {
-    const rating = this.props.rating;
-    if (!rating.result) {
-      const NoResult = results.none;
-      return <NoResult giveUp={this.props.giveUp} />;
-    }
-    const Result = rating.component;
-    return (
-      <Result
-        question={this.props.question}
-        rating={rating}
-        giveUp={this.props.giveUp}
-        nextQuestion={this.props.nextQuestion}
-        narrow={input.narrowResult}
-      />
     );
   }
 }

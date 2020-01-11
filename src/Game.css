@@ -25,22 +25,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.result-msg-enter {
-  transform: scale(0);
-  opacity: 0;
-}
-.result-msg-enter-active {
-  transform: scale(1);
-  opacity: 1;
-  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
-}
-.result-msg-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-.result-msg-exit-active {
-  opacity: 0;
-  transform: scale(0);
-  transition: transform 175ms ease-in-out, opacity 175ms ease-out;
-}

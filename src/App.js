@@ -2,7 +2,7 @@ import React from 'react';
 import GithubCorner from 'react-github-corner';
 import './App.css';
 import Streak from './components/Streak';
-import GameSettings from './GameSettings';
+import GameSettings from './components/GameSettings';
 import { ReactComponent as USFlag } from './assets/us.svg';
 import Game from './Game';
 
@@ -13,6 +13,7 @@ class App extends React.Component {
         <GameSettings />
         <Streak />
         <GithubCorner
+          className="hidden-xs"
           href="https://github.com/dexmo007/us-state-quiz"
           bannerColor="#fff"
           octoColor="#282c34"

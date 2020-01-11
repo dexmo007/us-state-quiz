@@ -1,30 +1,30 @@
-import { correct, gave_up, gave_up_map, almost, wrong } from '../result';
+import { Correct, GaveUpMap, GaveUp, Almost, Wrong } from '../result';
 
 export default [
   {
     result: 'correct',
     emojis: ['🎉', '👍', '👌', '👏'],
     messages: ['That is correct!', 'Duh!', 'Alright!', 'Absolutely!'],
-    component: correct,
+    component: Correct,
   },
   {
     result: 'gave_up',
     inputType: 'MAP',
     emojis: ['🧐'],
     messages: ['Look at the map!', 'The map reveals the answer!'],
-    component: gave_up_map,
+    component: GaveUpMap,
   },
   {
     result: 'gave_up',
     emojis: ['🧐'],
     messages: ["The correct answer would've been:"],
-    component: gave_up,
+    component: GaveUp,
   },
   {
     result: 'almost',
     emojis: ['❌', '🤔', '🤨'],
     messages: ['So close!', 'Almost!', 'Uh - close!', 'You just missed it!'],
-    component: almost,
+    component: Almost,
   },
   {
     result: 'wrong',
@@ -37,6 +37,6 @@ export default [
       'No way!',
       'Yeah, no!',
     ],
-    component: wrong,
+    component: Wrong,
   },
 ];
