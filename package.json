@@ -2,18 +2,17 @@
   "name": "us-state-quiz",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://dexmo007.github.io/us-state-quiz/",
   "dependencies": {
     "classnames": "^2.2.6",
     "js-levenshtein": "^1.1.6",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-flip-numbers": "^3.0.5",
     "react-github-corner": "^2.3.0",
     "react-modal": "^3.11.2",
     "react-redux": "^7.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "4.0.3",
     "react-transition-group": "^4.3.0",
     "react-usa-map": "^1.4.0",
     "redux": "^4.0.5",
@@ -43,6 +42,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^3.2.3"
   }
 }
