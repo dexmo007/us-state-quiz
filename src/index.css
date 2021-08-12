@@ -83,14 +83,14 @@ button:hover {
   position: absolute;
   transform: scale(1);
   transition: transform 250ms ease-out;
+  transition-delay: 150ms;
 }
 button:active .rocket::before {
-  animation: wiggle 1s linear 250ms infinite;
+  animation: wiggle 1s linear 400ms infinite;
   transform: scale(2);
 }
 @keyframes wiggle {
-  0%,
-  100% {
+  0% {
     transform: scale(2) rotate(0);
   }
   25% {
