@@ -6,6 +6,7 @@ function questionCategories(state, action) {
     case 'SET_QUESTION_CATEGORY':
       return {
         ...state,
+        streak: 0,
         questionCategories: action.questionCategories,
       };
     default:
