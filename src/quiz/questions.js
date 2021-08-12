@@ -1,4 +1,4 @@
-export default [
+const questions = [
   {
     category: 'abbreviation2State',
     displayName: 'Abbreviation → State',
@@ -45,3 +45,5 @@ export default [
     getMessage: () => 'Which state is shown?',
   },
 ];
+
+export default questions;

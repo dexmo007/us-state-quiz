@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
-export default (props) => (
+const GiveUpBtn = (props) => (
   <button className="fit-content" onClick={props.giveUp}>
     <span>Give up</span>
     <span role="img" aria-label="crying out loud">
@@ -8,3 +9,8 @@ export default (props) => (
     </span>
   </button>
 );
+GiveUpBtn.propTypes = {
+  giveUp: PropTypes.func.isRequired
+}
+
+export default GiveUpBtn;

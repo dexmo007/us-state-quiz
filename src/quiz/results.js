@@ -1,6 +1,6 @@
 import { Correct, GaveUpMap, GaveUp, Almost, Wrong } from '../result';
 
-export default [
+const results = [
   {
     result: 'correct',
     emojis: ['🎉', '👍', '👌', '👏'],
@@ -40,3 +40,5 @@ export default [
     component: Wrong,
   },
 ];
+
+export default results;
