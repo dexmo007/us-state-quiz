@@ -47,6 +47,10 @@ function CheckboxGroup(props) {
           checked={value[itemValue]}
           onChange={(e) => {
             const checked = e.target.checked;
+            // unchecking is denied if minimum reached
+            if (!checked && Object.values(value).filter(v => v).length <= props.minChecked) {
+              return;
+            }
             const newValue = {
               ...value,
               [itemValue]: checked,

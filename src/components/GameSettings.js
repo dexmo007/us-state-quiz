@@ -40,6 +40,7 @@ function GameSettings(props) {
             label: displayName,
             subtitle: description,
           }))}
+          minChecked={1}
           onChange={setQuestionCategories}
         />
         <button
