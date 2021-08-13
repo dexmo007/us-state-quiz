@@ -10,6 +10,7 @@
     "react-dom": "^17.0.2",
     "react-flip-numbers": "^3.0.5",
     "react-github-corner": "^2.3.0",
+    "react-icons": "^4.2.0",
     "react-modal": "^3.11.2",
     "react-redux": "^7.2.0",
     "react-scripts": "4.0.3",
@@ -27,7 +28,19 @@
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "warn",
+        {
+          "singleQuote": true,
+          "trailingComma": "es5"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -42,6 +55,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "eslint-plugin-prettier": "^3.4.0",
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.3.2"
   }
 }

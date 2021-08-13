@@ -7,5 +7,4 @@ const inputPropTypes = {
   question: question.isRequired,
 };
 
-
 export default inputPropTypes;

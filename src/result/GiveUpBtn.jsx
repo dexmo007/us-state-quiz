@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const GiveUpBtn = (props) => (
   <button className="fit-content" onClick={props.giveUp}>
@@ -10,7 +10,7 @@ const GiveUpBtn = (props) => (
   </button>
 );
 GiveUpBtn.propTypes = {
-  giveUp: PropTypes.func.isRequired
-}
+  giveUp: PropTypes.func.isRequired,
+};
 
 export default GiveUpBtn;

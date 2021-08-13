@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const NextQuestionBtn = (props) => (
   <button className="fit-content" onClick={props.nextQuestion}>
@@ -11,7 +11,7 @@ const NextQuestionBtn = (props) => (
 );
 
 NextQuestionBtn.propTypes = {
-  nextQuestion: PropTypes.func.isRequired
-}
+  nextQuestion: PropTypes.func.isRequired,
+};
 
 export default NextQuestionBtn;

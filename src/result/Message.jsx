@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import {rating} from '../prop-types'
+import PropTypes from 'prop-types';
+import { rating } from '../prop-types';
 
 const Message = (props) => (
   <div className="message">
@@ -13,7 +13,7 @@ const Message = (props) => (
 
 Message.propTypes = {
   iconLabel: PropTypes.string.isRequired,
-  rating: rating.isRequired
-}
+  rating: rating.isRequired,
+};
 
 export default Message;
