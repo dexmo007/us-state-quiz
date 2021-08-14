@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import './ActionBtn.css';
 
 const ActionBtn = (props) => (
-  <button className="ActionBtn" onClick={props.onClick} {...props}>
+  <button
+    {...props}
+    className={`ActionBtn ${props.className || ''}`}
+    onClick={props.onClick}
+  >
     {props.icon}
   </button>
 );
