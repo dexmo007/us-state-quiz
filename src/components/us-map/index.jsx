@@ -22,7 +22,7 @@ function USMap(props) {
           {...svgViewProps}
         >
           <g>
-            {data.paths.map(({ state, path }) => (
+            {data.paths.map(({ state, path }, index) => (
               <path
                 key={state}
                 data-name={state}
@@ -32,7 +32,10 @@ function USMap(props) {
                     ? props.highlightedFill || '#bd3d44'
                     : props.stateFill || '#d3d3d3'
                 }
-                className={classNames({ readonly: props.readOnly })}
+                className={classNames({
+                  readonly: props.readOnly,
+                  active: state === props.active,
+                })}
                 onClick={(e) => {
                   if (props.onClick && !props.readOnly && !panned)
                     props.onClick(e);

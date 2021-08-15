@@ -1,7 +1,8 @@
 .USMap path {
   pointer-events: all;
 }
-.USMap path:hover {
+.USMap path:hover,
+.USMap path.active {
   opacity: 0.5;
   cursor: pointer;
 }

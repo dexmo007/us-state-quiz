@@ -13,17 +13,22 @@ function questionCategories(state, action) {
       return state;
   }
 }
+const initialCategories = questions.reduce(
+  (questionCategories, { category }) => ({
+    ...questionCategories,
+    [category]: category === 'stateLocation', // true,
+  }),
+  {}
+);
 const initialState = {
   streak: 0,
   rating: {},
-  question: getRandomQuestion(),
-  questionCategories: questions.reduce(
-    (questionCategories, { category }) => ({
-      ...questionCategories,
-      [category]: true,
-    }),
-    {}
+  question: getRandomQuestion(
+    questions
+      .filter((q) => initialCategories[q.category])
+      .map(({ category }) => category)
   ),
+  questionCategories: initialCategories,
 };
 
 function app(state = initialState, action) {
