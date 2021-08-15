@@ -1,0 +1,21 @@
+{
+  "extends": "react-app",
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "allow": "as-needed"
+      }
+    ]
+  }
+}
