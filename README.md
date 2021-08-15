@@ -1,5 +1,9 @@
 [![Actions Status](https://github.com/dexmo007/us-state-quiz/workflows/CI/badge.svg)](https://github.com/dexmo007/us-state-quiz/actions)
 
+Production site: [https://us-state-quiz.cool](https://us-state-quiz.cool)
+
+Development preview site: [https://preview.us-state-quiz.cool](https://preview.us-state-quiz.cool)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
