@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { isMobile } from 'react-device-detect';
 import ActionBtn from './ActionBtn';
 import { FaUndo } from 'react-icons/fa';
+import { easeOutCubic } from '../util/easing-fn';
 import './SvgView.css';
 
 function SvgView(props) {
@@ -13,65 +15,58 @@ function SvgView(props) {
   const svg = useRef();
 
   function onWheel(e) {
-    // if (!e.isDefaultPrevented()) {
-    //   e.preventDefault();
-    // }
     const [x, y, w, h] = viewBox;
     var mx = e.nativeEvent.offsetX;
     var my = e.nativeEvent.offsetY;
-    var dw = w * Math.sign(e.nativeEvent.deltaY) * -0.05;
-    var dh = h * Math.sign(e.nativeEvent.deltaY) * -0.05;
+    var dw = w * Math.sign(e.nativeEvent.deltaY) * -1 * props.zoomSpeed;
+    var dh = h * Math.sign(e.nativeEvent.deltaY) * -1 * props.zoomSpeed;
     var dx = (dw * mx) / svgWidth;
     var dy = (dh * my) / svgHeight;
-    const newViewBox = [x + dx, y + dy, w - dw, h - dh];
-    setViewBox(newViewBox);
+    const zoomedViewBox = [x + dx, y + dy, w - dw, h - dh];
+    setViewBox(zoomedViewBox);
   }
   function onMouseDown(e) {
+    if (resetting) {
+      return;
+    }
     setPanning({
       active: true,
       startPoint: { x: e.nativeEvent.x, y: e.nativeEvent.y },
       panned: false,
     });
   }
+  function handlePan(e) {
+    const [x, y, w, h] = viewBox;
+    const endPoint = { x: e.nativeEvent.x, y: e.nativeEvent.y };
+    const dx =
+      (((panning.startPoint.x - endPoint.x) / svg.current.clientWidth) *
+        svgWidth) /
+      (svgWidth / w);
+    const dy =
+      (((panning.startPoint.y - endPoint.y) / svg.current.clientHeight) *
+        svgHeight) /
+      (svgHeight / h);
+
+    const pannedViewBox = [x + dx, y + dy, w, h];
+    setViewBox(pannedViewBox);
+    return { endPoint, panned: panning.panned || dx !== 0 || dy !== 0 };
+  }
   function onMouseMove(e) {
     if (panning.active) {
-      const endPoint = { x: e.nativeEvent.x, y: e.nativeEvent.y };
-      const [x, y, w, h] = viewBox;
-
-      var dx =
-        (((panning.startPoint.x - endPoint.x) / svg.current.clientWidth) *
-          svgWidth) /
-        (svgWidth / w);
-      var dy =
-        (((panning.startPoint.y - endPoint.y) / svg.current.clientHeight) *
-          svgHeight) /
-        (svgHeight / h);
-      var movedViewBox = [x + dx, y + dy, w, h];
-      setViewBox(movedViewBox);
+      const { endPoint, panned } = handlePan(e);
       setPanning({
         active: true,
         startPoint: endPoint,
-        panned: panning.panned || dx !== 0 || dy !== 0,
+        panned,
       });
     }
   }
   function onMouseUp(e) {
     if (panning.active) {
-      const endPoint = { x: e.nativeEvent.x, y: e.nativeEvent.y };
-      const [x, y, w, h] = viewBox;
-      var dx =
-        (((panning.startPoint.x - endPoint.x) / svg.current.clientWidth) *
-          svgWidth) /
-        (svgWidth / w);
-      var dy =
-        (((panning.startPoint.y - endPoint.y) / svg.current.clientHeight) *
-          svgHeight) /
-        (svgHeight / h);
-      const newViewBox = [x + dx, y + dy, w, h];
-      setViewBox(newViewBox);
+      const { panned } = handlePan(e);
       setPanning({
         active: false,
-        panned: panning.panned || dx !== 0 || dy !== 0,
+        panned,
       });
     }
   }
@@ -85,10 +80,6 @@ function SvgView(props) {
 
     const delta = [ox - x, oy - y, ow - w, oh - h];
     const [dx, dy, dw, dh] = delta;
-    const animationDuration = props.resetAnimationDuration || 750;
-    function easeOutCubic(x) {
-      return 1 - Math.pow(1 - x, 3);
-    }
     let start, prevTs;
     function step(ts) {
       if (start === undefined) {
@@ -96,10 +87,12 @@ function SvgView(props) {
       }
       const elapsed = ts - start;
       if (prevTs !== ts) {
-        const f = easeOutCubic(Math.min(elapsed / animationDuration, 1));
+        const f = props.resetAnimationTimingFunction(
+          Math.min(elapsed / props.resetAnimationDuration, 1)
+        );
         setViewBox([x + dx * f, y + dy * f, w + dw * f, h + dh * f]);
       }
-      if (elapsed < animationDuration) {
+      if (elapsed < props.resetAnimationDuration) {
         prevTs = ts;
         window.requestAnimationFrame(step);
       } else {
@@ -113,6 +106,16 @@ function SvgView(props) {
     const [ox, oy, ow, oh] = props.viewBox;
     return x !== ox || y !== oy || w !== ow || h !== oh;
   }
+  // disable interaction on mobile
+  const interactionListeners = isMobile
+    ? {}
+    : {
+        onWheel,
+        onMouseDown,
+        onMouseMove,
+        onMouseUp,
+        onMouseLeave,
+      };
   return (
     <div
       className="SvgView"
@@ -133,11 +136,7 @@ function SvgView(props) {
       {props.for(
         {
           viewBox,
-          onWheel,
-          onMouseDown,
-          onMouseMove,
-          onMouseUp,
-          onMouseLeave,
+          ...interactionListeners,
           ref: svg,
         },
         {
@@ -149,11 +148,19 @@ function SvgView(props) {
   );
 }
 
+SvgView.defaultProps = {
+  zoomSpeed: 0.05,
+  resetAnimationDuration: 750,
+  resetAnimationTimingFunction: easeOutCubic,
+};
+
 SvgView.propTypes = {
   for: PropTypes.func.isRequired,
   viewBox: PropTypes.array.isRequired,
   style: PropTypes.object,
+  zoomSpeed: PropTypes.number,
   resetAnimationDuration: PropTypes.number,
+  resetAnimationTimingFunction: PropTypes.func,
 };
 
 export default SvgView;
