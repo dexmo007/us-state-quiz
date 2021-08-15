@@ -25,7 +25,7 @@ class App extends React.Component {
         <div className="title">
           <USFlag height="1em" style={{ margin: '.2em' }} />
           <span className="d-flex" style={{ alignItems: 'center' }}>
-            US State Quiz
+            US State Quiz(2)
           </span>
         </div>
 
