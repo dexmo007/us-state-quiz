@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint src/",
+    "lint:ci": "eslint --max-warnings 0 src/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
