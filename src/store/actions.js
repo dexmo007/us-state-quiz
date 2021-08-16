@@ -19,19 +19,21 @@ export function answer(answer) {
       dispatch(nextQuestion());
       return;
     }
+    const rating = quiz.rate(getState(), answer);
     dispatch({
       type: 'ANSWER',
-      rating: quiz.rate(getState(), answer),
+      rating,
     });
   };
 }
 
 export function giveUp() {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
     dispatch({
       type: 'GIVE_UP',
       rating: quiz.giveUp(getState()),
     });
+  };
 }
 
 export function setQuestionCategories(questionCategories) {
