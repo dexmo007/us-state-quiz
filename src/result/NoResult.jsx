@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function none(props) {
   return (
-    <React.Fragment>
+    <>
       <div
         className="message"
         aria-hidden="true"
@@ -19,6 +19,6 @@ export default function none(props) {
         </span>
         <span>Don't know</span>
       </button>
-    </React.Fragment>
+    </>
   );
 }

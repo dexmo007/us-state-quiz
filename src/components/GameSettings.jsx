@@ -18,7 +18,7 @@ function GameSettings(props) {
     props.setQuestionCategories(questionCategories);
   };
   return (
-    <React.Fragment>
+    <>
       <GearCorner onClick={() => setOpen(true)} />
       <Modal
         isOpen={open}
@@ -57,7 +57,7 @@ function GameSettings(props) {
           </span>
         </button>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }
 

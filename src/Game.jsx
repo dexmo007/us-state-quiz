@@ -12,7 +12,7 @@ class Game extends React.Component {
   render() {
     const QuizInput = chooseInput(this.props.question);
     return (
-      <React.Fragment>
+      <>
         <SwitchTransition>
           <CSSTransition
             key={this.props.question.id}
@@ -42,7 +42,7 @@ class Game extends React.Component {
             </div>
           </CSSTransition>
         </SwitchTransition>
-      </React.Fragment>
+      </>
     );
   }
 }

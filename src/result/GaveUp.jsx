@@ -10,7 +10,7 @@ export default function gave_up(props) {
     );
   }
   return (
-    <React.Fragment>
+    <>
       <div className="message">
         <span role="img" aria-label="Incorrect">
           {props.rating.emoji}
@@ -21,6 +21,6 @@ export default function gave_up(props) {
       {!props.quizInput.narrowResult && correctAnswer({ padding: '1em' })}
 
       <NextQuestionBtn nextQuestion={props.nextQuestion} />
-    </React.Fragment>
+    </>
   );
 }
