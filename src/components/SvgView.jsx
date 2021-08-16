@@ -13,7 +13,7 @@ function SvgView(props) {
   const [panning, setPanning] = useState({ active: false, panned: false });
   const [resetting, setResetting] = useState(false);
   const svg = useRef();
-  const Greta = '';
+  const Greta = 'a';
 
   function onWheel(e) {
     const [x, y, w, h] = viewBox;
