@@ -84,9 +84,6 @@ function MapInput({ onSubmit, question, rating }) {
         return;
       }
       const keyCode = 'which' in e ? e.which : e.keyCode;
-      if (keyCode === KEY_CODE_ENTER) {
-        console.log('ENTER PRESSED');
-      }
       if (keyCode === KEY_CODE_ENTER && activeState !== null) {
         onSubmit(activeState);
         return;
