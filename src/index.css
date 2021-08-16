@@ -3,13 +3,22 @@
 ::after {
   box-sizing: border-box;
 }
+html {
+  height: -webkit-fill-available;
+}
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  height: -webkit-fill-available;
   width: 100vw;
-  /* overflow: hidden; */
   background-color: #282c34;
   color: white;
+}
+#root {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  height: -webkit-fill-available;
 }
 
 code {
