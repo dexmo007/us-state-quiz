@@ -110,8 +110,9 @@ function MapInput({ onSubmit, question, rating }) {
       <span className="question">{question.message}</span>
       <USMap
         key={Math.random()}
-        className={classNames('answer', rating.result)}
-        style={{ height: 'auto' }}
+        className="map-input"
+        svgClassName={classNames('answer', rating.result)}
+        style={{ flex: 1 }}
         readOnly={rating.resolved}
         highlight={rating.resolved ? question.correctAnswer : null}
         active={activeState}

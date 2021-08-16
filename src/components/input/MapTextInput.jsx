@@ -7,24 +7,27 @@ import './index.css';
 class MapTextInput extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         <span className="question">{this.props.question.message}</span>
         <USMap
-          style={{ height: 'auto' }}
+          style={{ flex: 1 }}
           readOnly={true}
           highlight={this.props.question.state.abbreviation}
+          className="map-input"
         ></USMap>
         <TextField
           question={this.props.question}
           rating={this.props.rating}
           onSubmit={this.props.onSubmit}
-          inputStyle={{
+          style={{
             margin: '1em',
             marginBottom: '0',
+          }}
+          inputStyle={{
             padding: '0.5em',
           }}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

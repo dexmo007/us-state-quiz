@@ -41,6 +41,7 @@ class TextField extends React.Component {
         autoComplete="off"
         autoCorrect="off"
         spellCheck="false"
+        style={this.props.style}
       >
         <input
           type="text"

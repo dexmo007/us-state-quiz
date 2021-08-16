@@ -8,15 +8,16 @@ import SvgView from '../SvgView';
 function USMap(props) {
   return (
     <SvgView
+      className={props.className}
       style={{
         ...props.style,
-        height: '100%',
-        display: 'block',
+        display: 'flex',
+        alignItems: 'center',
       }}
       viewBox={data.viewBox}
       for={(svgViewProps, { panned }) => (
         <svg
-          className={`USMap ${props.className || ''}`}
+          className={classNames('USMap', props.svgClassName)}
           xmlns="http://www.w3.org/2000/svg"
           style={{ height: '100%', width: '100%' }}
           {...svgViewProps}

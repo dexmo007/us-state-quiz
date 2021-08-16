@@ -118,7 +118,7 @@ function SvgView(props) {
       };
   return (
     <div
-      className="SvgView"
+      className={classNames('SvgView', props.className)}
       style={{
         ...props.style,
         position: 'relative',
