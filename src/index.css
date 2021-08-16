@@ -71,7 +71,9 @@ button.fit-content {
   padding: 0.5em 1em;
 }
 
-button:hover {
+button:hover,
+button:active,
+button:focus {
   background: #4b525f;
 }
 
