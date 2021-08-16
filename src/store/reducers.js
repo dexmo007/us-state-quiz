@@ -13,10 +13,18 @@ function questionCategories(state, action) {
       return state;
   }
 }
+let filterCategories = () => true;
+const defaultCategories = process.env.REACT_APP_DEFAULT_QUESTION_CATEGORIES;
+if (defaultCategories && defaultCategories.trim()) {
+  const categories = process.env.REACT_APP_DEFAULT_QUESTION_CATEGORIES.split(
+    ','
+  ).map((s) => s.trim());
+  filterCategories = (c) => categories.includes(c);
+}
 const initialCategories = questions.reduce(
   (questionCategories, { category }) => ({
     ...questionCategories,
-    [category]: category === 'stateLocation', // true,
+    [category]: filterCategories(category),
   }),
   {}
 );
