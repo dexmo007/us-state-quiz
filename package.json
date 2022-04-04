@@ -13,7 +13,7 @@
     "react-github-corner": "^2.3.0",
     "react-icons": "^4.2.0",
     "react-modal": "^3.11.2",
-    "react-redux": "^7.2.0",
+    "react-redux": "^7.2.8",
     "react-scripts": "4.0.3",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
