@@ -1,0 +1,12 @@
+import Message from './Message';
+import NextQuestionBtn from './NextQuestionBtn';
+import type ResultProps from './props';
+
+export default function correct(props: ResultProps) {
+  return (
+    <>
+      <Message rating={props.rating} iconLabel="Congratulations" />
+      <NextQuestionBtn />
+    </>
+  );
+}

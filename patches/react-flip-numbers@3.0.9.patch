@@ -1,0 +1,21 @@
+diff --git a/lib/index.d.ts b/lib/index.d.ts
+index c1057ff3676ebea493dcca6493a6aed82ca0c853..0e4f225824ead5c1c9f1d5493a44cd514f02eab4 100644
+--- a/lib/index.d.ts
++++ b/lib/index.d.ts
+@@ -17,5 +17,5 @@ declare module 'react-flip-numbers' {
+     width: number;
+   }
+ 
+-  export default class FlipNumbers extends React.Component<FlipNumbersProps> {}
++  export class FlipNumbers extends React.Component<FlipNumbersProps> {}
+ }
+diff --git a/lib/index.js b/lib/index.js
+index 2b77634583db2ca46a01240b823851cb950b27de..f32303357d4d937ac4f9ba579273ba483c49b2e9 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -420,4 +420,4 @@ _defineProperty(FlipNumbers, "defaultProps", {
+ });
+ 
+ exports.FlipNumber = FlipNumber;
+-exports.default = FlipNumbers;
++exports.FlipNumbers = FlipNumbers;

@@ -1,0 +1,3 @@
+patchedDependencies:
+  react-flip-numbers@3.0.9: patches/react-flip-numbers@3.0.9.patch
+  react-github-corner@2.5.0: patches/react-github-corner@2.5.0.patch
