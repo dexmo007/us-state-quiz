@@ -1,0 +1,29 @@
+diff --git a/index.d.ts b/index.d.ts
+index b3a4a76a9ca12f979623bd9786d3c3e11bd72a53..0d740b8fa7394fd292a9dfae13554fa7184086c5 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -1,5 +1,5 @@
+ import * as React from 'react';
+-import { CSSProperties, AnchorHTMLAttributes } from 'react';
++import { AnchorHTMLAttributes, CSSProperties } from 'react';
+ 
+ interface GithubCornerProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+     href?: string;
+@@ -12,5 +12,5 @@ interface GithubCornerProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+     svgStyle?: CSSProperties;
+ }
+ 
+-export default class GithubCorner extends React.Component<GithubCornerProps, any> {
++export class GithubCorner extends React.Component<GithubCornerProps, any> {
+ }
+diff --git a/lib/GithubCorner.js b/lib/GithubCorner.js
+index 4ed9f6cbed564de782dda31b9d4226912ede24ea..9fb8fe382756934801f94cc0ec36d5af28fced34 100644
+--- a/lib/GithubCorner.js
++++ b/lib/GithubCorner.js
+@@ -137,5 +137,5 @@ GithubCorner.defaultProps = {
+   bannerColor: '#151513',
+   ariaLabel: 'Open GitHub project'
+ };
+-exports.default = GithubCorner;
++exports.GithubCorner = GithubCorner;
+ //# sourceMappingURL=GithubCorner.js.map
