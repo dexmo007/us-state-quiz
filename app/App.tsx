@@ -31,6 +31,9 @@ export default function App() {
           US State Quiz
         </span>
       </div>
+      <span>
+        Hello from <b>branch deploy</b> 👋
+      </span>
 
       <Game />
     </div>
