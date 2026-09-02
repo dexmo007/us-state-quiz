@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { FlipNumbers } from 'react-flip-numbers';
-import useWindowSize from '../hooks/use-window-size';
-import { useAppSelector } from '../store';
+import useWindowSize from '~/hooks/use-window-size';
+import { useAppSelector } from '~/store';
 import './Streak.css';
 
 export default function Streak() {

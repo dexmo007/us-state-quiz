@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FaUndo } from 'react-icons/fa';
-import { easeOutCubic } from '../util/easing-fn';
+import { easeOutCubic } from '~/util/easing-fn';
 import ActionBtn from './ActionBtn';
 import './SvgView.css';
 

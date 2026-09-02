@@ -1,4 +1,4 @@
-import type { QuestionSpec } from '../types';
+import type { QuestionSpec } from '~/types';
 
 const questions = [
   {

@@ -1,4 +1,4 @@
-import { type Rating } from '../types';
+import type { Rating } from '~/types';
 
 interface MessageProps {
   iconLabel: string;

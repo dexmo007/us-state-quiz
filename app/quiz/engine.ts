@@ -1,7 +1,7 @@
 import levenshtein from 'js-levenshtein';
-import type { GameState } from '../store';
-import type { Question, Rating, ResultType, State } from '../types';
-import { pick } from '../util/rng';
+import type { GameState } from '~/store';
+import type { Question, Rating, ResultType, State } from '~/types';
+import { pick } from '~/util/rng';
 import questions from './questions';
 import { results } from './results';
 import states from './states';

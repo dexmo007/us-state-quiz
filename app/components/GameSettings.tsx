@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
-import { questions } from '../quiz';
-import { actions, useAppDispatch, useAppSelector } from '../store';
+import { questions } from '~/quiz';
+import { actions, useAppDispatch, useAppSelector } from '~/store';
 import CheckboxGroup from './CheckboxGroup';
 import GearCorner from './GearCorner';
 

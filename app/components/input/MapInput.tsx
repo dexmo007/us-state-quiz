@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
-import USMap from '../us-map';
+import USMap from '~/components/us-map';
 import './index.css';
 import type InputProps from './props';
 
