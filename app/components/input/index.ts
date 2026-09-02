@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { Question } from '../../types';
+import type { Question } from '~/types';
 import MapInput from './MapInput';
 import MapTextInput from './MapTextInput';
 import TextInput from './TextInput';

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import type { Question, Rating } from '../../types';
+import type { Question, Rating } from '~/types';
 import './index.css';
 import './TextField.css';
 

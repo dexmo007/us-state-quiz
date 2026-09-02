@@ -1,4 +1,4 @@
-import { actions, useAppDispatch } from '../store';
+import { actions, useAppDispatch } from '~/store';
 
 export default function NoResult() {
   const dispatch = useAppDispatch();

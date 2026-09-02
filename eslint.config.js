@@ -1,6 +1,7 @@
 import css from '@eslint/css';
 import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import importPlugin from 'eslint-plugin-import';
 import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
@@ -23,6 +24,26 @@ export default defineConfig([
     },
   },
   { files: ['**/*.{jsx,tsx}'], ...pluginReact.configs.flat['jsx-runtime'] },
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
+    ],
+    settings: {
+      'import/resolver': {
+        typescript: true,
+      },
+    },
+    rules: {
+      'import/no-relative-parent-imports': [
+        'warn',
+        {
+          ignore: ['~/'],
+        },
+      ],
+    },
+  },
   { settings: { react: { version: '19' } } },
   {
     files: ['**/*.css'],

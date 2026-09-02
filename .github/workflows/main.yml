@@ -10,4 +10,5 @@ jobs:
       - uses: pnpm/setup@v2
       - run: pnpm typecheck
       - run: pnpm lint:ci
+      - run: pnpm check-format
       - run: pnpm build

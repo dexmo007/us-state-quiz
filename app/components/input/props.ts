@@ -1,4 +1,4 @@
-import type { Question, Rating } from '../../types';
+import type { Question, Rating } from '~/types';
 
 export default interface InputProps {
   onSubmit(value: string): void;

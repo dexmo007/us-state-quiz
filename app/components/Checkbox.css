@@ -11,6 +11,8 @@ input[type='checkbox'] + label {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  /* eslint-disable-next-line css/use-baseline */
+  user-select: none;
 }
 
 input[type='checkbox'] + label span {
@@ -28,8 +30,12 @@ input[type='checkbox'] + label::before {
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.6;
-  -webkit-transition: all 0.12s, border-color 0.08s;
-  transition: all 0.12s, border-color 0.08s;
+  -webkit-transition:
+    all 0.12s,
+    border-color 0.08s;
+  transition:
+    all 0.12s,
+    border-color 0.08s;
 }
 
 input[type='checkbox']:checked + label::before {

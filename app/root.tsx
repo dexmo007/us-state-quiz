@@ -1,7 +1,7 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import { store } from './store';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

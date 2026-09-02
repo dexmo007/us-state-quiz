@@ -1,5 +1,5 @@
-import { Almost, Correct, GaveUp, GaveUpMap, Wrong } from '../result';
-import type ResultProps from '../result/props';
+import { Almost, Correct, GaveUp, GaveUpMap, Wrong } from '~/result';
+import type ResultProps from '~/result/props';
 
 const resultSpecs = [
   {

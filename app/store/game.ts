@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { questions } from '../quiz';
-import * as quiz from '../quiz/engine';
-import type { Question, Rating } from '../types';
+import { questions } from '~/quiz';
+import * as quiz from '~/quiz/engine';
+import type { Question, Rating } from '~/types';
 
 const initialCategories = questions.map(({ category }) => category);
 

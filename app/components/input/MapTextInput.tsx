@@ -1,9 +1,9 @@
-import USMap from '../us-map';
+import USMap from '~/components/us-map';
 import TextField from './TextField';
 import './index.css';
 import type InputProps from './props';
 
-export function MapTextInput(props: InputProps) {
+function MapTextInput(props: InputProps) {
   return (
     <>
       <span className="question">{props.question.message}</span>

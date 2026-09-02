@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import SvgView from '../SvgView';
+import SvgView from '~/components/SvgView';
 import data from './data.json';
 import './USMap.css';
 

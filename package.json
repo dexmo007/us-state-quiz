@@ -10,7 +10,8 @@
     "start": "react-router-serve ./build/server/index.js",
     "lint": "eslint app/",
     "lint:ci": "eslint --max-warnings 0 app/",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "check-format": "prettier app/ --check"
   },
   "browserslist": {
     "production": [
@@ -55,6 +56,8 @@
     "@types/react-transition-group": "^4.4.12",
     "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.11.0",
     "husky": "^7.0.1",

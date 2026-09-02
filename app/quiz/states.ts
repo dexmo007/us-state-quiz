@@ -1,4 +1,4 @@
-import type { State } from '../types';
+import type { State } from '~/types';
 import data from './states.json';
 
 const states: State[] = data.map((state) => ({
