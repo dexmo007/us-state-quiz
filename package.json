@@ -33,7 +33,7 @@
     "isbot": "^5",
     "js-levenshtein": "^1.1.6",
     "react": "^19.2.7",
-    "react-device-detect": "^1.17.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^19.2.7",
     "react-flip-numbers": "^3.0.9",
     "react-github-corner": "^2.3.0",
