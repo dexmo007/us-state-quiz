@@ -65,7 +65,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0",
-    "vite": "^8.2.2",
+    "vite": "^8.3.0",
     "vite-plugin-svgr": "^5.2.0"
   },
   "packageManager": "pnpm@12.3.0+sha512.d7bd39a488131de200aeec1dbc9ca58b890437f09b1f925b1bf820fdc463df01a329e3699c3d8a7bb186d5cf3f75cb68ce820c69d6b2c983525bc0821de4c529",
